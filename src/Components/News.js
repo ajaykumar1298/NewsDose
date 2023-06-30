@@ -40,11 +40,22 @@ export default class News extends Component {
       },
     ],
   };
+  componentDidMount = async () => {
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+
+    // let fetchData = await (await fetch(url)).json();
+
+    let fetchData = await (await fetch(url)).json();
+    this.setState({
+      articles: fetchData.articles,
+    });
+  };
+
   state = {
-    articles: this.data.articles,
+    articles: [],
+    page: 1,
   };
   render() {
-    console.log(this.state.articles);
     return (
       <div>
         <div className="container my-3 text-center">
