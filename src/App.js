@@ -1,7 +1,12 @@
 import React, { Component } from "react";
+import NavBar from "./Components/NavBar";
 
 export default class App extends Component {
   render() {
-    return <div>this is the class based components</div>;
+    return (
+      <div>
+        <NavBar />
+      </div>
+    );
   }
 }
