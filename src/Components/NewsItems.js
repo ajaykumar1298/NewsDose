@@ -13,7 +13,7 @@ export default class NewsItems extends Component {
                 : "https://img.etimg.com/thumb/msid-101373306,width-1070,height-580,imgsize-88698,overlay-etmarkets/photo.jpg"
             }
             className="card-img-top"
-            alt="..."
+            alt="image not avilable right now"
           />
           <div className="card-body">
             <h5 className="card-title">{title}...</h5>
@@ -22,7 +22,7 @@ export default class NewsItems extends Component {
               href={url}
               target="_blank"
               rel="noreferrer"
-              className="btn btn-dark btn-sm "
+              className="btn btn-dark btn-sm"
             >
               Read More
             </a>

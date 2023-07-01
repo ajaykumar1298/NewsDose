@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewsItems from "./NewsItems";
 import Spiner from "./Spiner";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default class News extends Component {
   constructor(props) {
@@ -40,28 +41,45 @@ export default class News extends Component {
     let pageNo = this.state.page - 1;
     this.updateNews(pageNo);
   };
+  fetchMoreData = async () => {
+    let pageNo = this.state.page + 1;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&page=${pageNo}&pageSize=${this.props.pageSize}`;
+    let fetchData = await (await fetch(url)).json();
+    this.setState({
+      articles: this.state.articles.concat(fetchData.articles),
+      page: pageNo,
+    });
+  };
 
   render() {
     return (
-      <div>
-        <div className="container my-3 text-center">
-          <h1>TopNews -Top HeadLines</h1>
-          {!this.state.loading && <Spiner />}
-          <div className="row my-3">
-            {this.state.articles.map((elem) => {
-              return (
-                <div className="col-md-4" key={elem.url}>
-                  <NewsItems
-                    title={elem.title}
-                    desc={elem.description}
-                    imgSrc={elem.urlToImage}
-                    url={elem.url}
-                  />
-                </div>
-              );
-            })}
+      <>
+        <h1 className="text-center">TopNews -Top HeadLines</h1>
+        {/* {!this.state.loading && <Spiner />} */}
+        <InfiniteScroll
+          dataLength={this.state.articles.length}
+          next={this.fetchMoreData}
+          hasMore={this.state.articles.length !== this.state.totalResults}
+          loader={<Spiner />}
+        >
+          <div className="container my-3 ">
+            <div className="row my-3">
+              {this.state.articles.map((elem) => {
+                return (
+                  <div className="col-md-4" key={elem.url}>
+                    <NewsItems
+                      title={elem.title}
+                      desc={elem.description}
+                      imgSrc={elem.urlToImage}
+                      url={elem.url}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="d-flex justify-content-between">
+        </InfiniteScroll>
+        {/* <div className="d-flex justify-content-between">
             <button
               disabled={this.state.page <= 1}
               className="btn btn-dark btn-sm"
@@ -80,9 +98,8 @@ export default class News extends Component {
             >
               next &rarr;
             </button>
-          </div>
-        </div>
-      </div>
+          </div> */}
+      </>
     );
   }
 }
