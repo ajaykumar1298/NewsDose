@@ -11,9 +11,16 @@ export default class News extends Component {
       page: 1,
       loading: false,
     };
+    document.title = `${this.capitalFirstLetterOfWord(
+      this.props.category
+    )} - TopNews`;
   }
+
+  capitalFirstLetterOfWord = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
   componentDidMount = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&category=${this.props.category}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
 
     // let fetchData = await (await fetch(url)).json();
 
@@ -26,7 +33,7 @@ export default class News extends Component {
   };
 
   updateNews = async (pageNo) => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&page=${pageNo}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&category=${this.props.category}&page=${pageNo}&pageSize=${this.props.pageSize}`;
     let fetchData = await (await fetch(url)).json();
     this.setState({
       articles: fetchData.articles,
@@ -43,7 +50,7 @@ export default class News extends Component {
   };
   fetchMoreData = async () => {
     let pageNo = this.state.page + 1;
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&page=${pageNo}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${this.props.apiKey}&category=${this.props.category}&page=${pageNo}&pageSize=${this.props.pageSize}`;
     let fetchData = await (await fetch(url)).json();
     this.setState({
       articles: this.state.articles.concat(fetchData.articles),
@@ -54,7 +61,10 @@ export default class News extends Component {
   render() {
     return (
       <>
-        <h1 className="text-center my-3">TopNews -Top HeadLines</h1>
+        <h1 className="text-center my-3">
+          TopNews -Top {this.capitalFirstLetterOfWord(this.props.category)}{" "}
+          HeadLines
+        </h1>
         {/* {!this.state.loading && <Spiner />} */}
         <InfiniteScroll
           dataLength={this.state.articles.length}
