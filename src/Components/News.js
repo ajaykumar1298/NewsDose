@@ -54,7 +54,7 @@ export default class News extends Component {
   render() {
     return (
       <>
-        <h1 className="text-center">TopNews -Top HeadLines</h1>
+        <h1 className="text-center my-3">TopNews -Top HeadLines</h1>
         {/* {!this.state.loading && <Spiner />} */}
         <InfiniteScroll
           dataLength={this.state.articles.length}
@@ -62,7 +62,7 @@ export default class News extends Component {
           hasMore={this.state.articles.length !== this.state.totalResults}
           loader={<Spiner />}
         >
-          <div className="container my-3 ">
+          <div className="container">
             <div className="row my-3">
               {this.state.articles.map((elem) => {
                 return (
@@ -72,6 +72,9 @@ export default class News extends Component {
                       desc={elem.description}
                       imgSrc={elem.urlToImage}
                       url={elem.url}
+                      source={elem.source.name}
+                      author={elem.author}
+                      publishedAt={elem.publishedAt}
                     />
                   </div>
                 );
