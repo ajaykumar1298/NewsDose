@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewsItems from "./NewsItems";
+import Spiner from "./Spiner";
 
 export default class News extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ export default class News extends Component {
     this.state = {
       articles: [],
       page: 1,
+      loading: false,
     };
   }
   componentDidMount = async () => {
@@ -18,6 +20,7 @@ export default class News extends Component {
     this.setState({
       articles: fetchData.articles,
       totalResults: fetchData.totalResults,
+      loading: true,
     });
   };
 
@@ -43,6 +46,7 @@ export default class News extends Component {
       <div>
         <div className="container my-3 text-center">
           <h1>TopNews -Top HeadLines</h1>
+          {!this.state.loading && <Spiner />}
           <div className="row my-3">
             {this.state.articles.map((elem) => {
               return (
