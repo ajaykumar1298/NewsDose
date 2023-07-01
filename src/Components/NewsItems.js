@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 export default class NewsItems extends Component {
   render() {
-    let { title, desc, imgSrc } = this.props;
+    let { title, desc, imgSrc, url } = this.props;
     return (
       <div>
-        <div className="card">
+        <div className="card my-3">
           <img
             src={
               imgSrc
@@ -18,7 +18,12 @@ export default class NewsItems extends Component {
           <div className="card-body">
             <h5 className="card-title">{title}...</h5>
             <p className="card-text">{desc}...</p>
-            <a href="/" className="btn btn-dark btn-sm ">
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-dark btn-sm "
+            >
               Read More
             </a>
           </div>

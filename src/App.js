@@ -4,7 +4,7 @@ import News from "./Components/News";
 
 export default class App extends Component {
   api = process.env.REACT_APP_NEWS_API;
-  pageSize = 5;
+  pageSize = 9;
   render() {
     return (
       <div>
