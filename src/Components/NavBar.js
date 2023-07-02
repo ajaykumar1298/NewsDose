@@ -4,10 +4,10 @@ export default function NavBar() {
   return (
     <div>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-              TopNews
+              NewsDose
             </Link>
             <button
               className="navbar-toggler"

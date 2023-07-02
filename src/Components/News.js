@@ -12,7 +12,6 @@ export default function News(props) {
   const capitalFirstLetterOfWord = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
-  document.title = `${capitalFirstLetterOfWord(props.category)} - TopNews`;
 
   const updateNewsForUseEffect = async () => {
     props.setProgress(10);
@@ -29,23 +28,25 @@ export default function News(props) {
     props.setProgress(100);
   };
   useEffect(() => {
+    document.title = `${capitalFirstLetterOfWord(props.category)} - NewsDose`;
     updateNewsForUseEffect();
+    // eslint-disable-next-line
   }, []);
 
-  const updateNews = async (pageNo) => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${props.apiKey}&category=${props.category}&page=${pageNo}&pageSize=${props.pageSize}`;
-    let fetchData = await (await fetch(url)).json();
-    setArticles(fetchData.articles);
-    setPage(pageNo);
-  };
-  const handleNextClick = () => {
-    let pageNo = page + 1;
-    updateNews(pageNo);
-  };
-  const handleToPrevClick = () => {
-    let pageNo = page - 1;
-    updateNews(pageNo);
-  };
+  // const updateNews = async (pageNo) => {
+  //   let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${props.apiKey}&category=${props.category}&page=${pageNo}&pageSize=${props.pageSize}`;
+  //   let fetchData = await (await fetch(url)).json();
+  //   setArticles(fetchData.articles);
+  //   setPage(pageNo);
+  // };
+  // const handleNextClick = () => {
+  //   let pageNo = page + 1;
+  //   updateNews(pageNo);
+  // };
+  // const handleToPrevClick = () => {
+  //   let pageNo = page - 1;
+  //   updateNews(pageNo);
+  // };
   const fetchMoreData = async () => {
     let pageNo = page + 1;
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${props.apiKey}&category=${props.category}&page=${pageNo}&pageSize=${props.pageSize}`;
@@ -55,10 +56,10 @@ export default function News(props) {
   };
   return (
     <>
-      <h1 className="text-center my-3">
-        TopNews -Top {capitalFirstLetterOfWord(props.category)} HeadLines
+      <h1 className="text-center" style={{ marginTop: "90px" }}>
+        NewsDose -Top {capitalFirstLetterOfWord(props.category)} HeadLines
       </h1>
-      {/* {!loading && <Spiner />} */}
+      {!loading && <Spiner />}
       <InfiniteScroll
         dataLength={articles.length}
         next={fetchMoreData}
