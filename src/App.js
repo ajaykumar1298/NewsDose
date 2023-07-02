@@ -1,3 +1,4 @@
+//convert class based component to function based component start here
 import React, { Component } from "react";
 import NavBar from "./Components/NavBar";
 import News from "./Components/News";
